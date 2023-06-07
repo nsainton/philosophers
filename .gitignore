@@ -1,0 +1,27 @@
+# Vim Swap files #
+*.swp
+
+# Objects files #
+*.o
+
+# Dependancies files #
+*.d
+
+# Mac debug folder #
+*.dsYM
+
+# Executables #
+*.out
+
+# Philosophers executables #
+philo
+philo_bonus
+
+# Archive files #
+*.a
+
+# Debug file #
+.debug
+
+# Libraries directory #
+libs
