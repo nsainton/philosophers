@@ -6,7 +6,7 @@
 #    By: avedrenn <avedrenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/16 11:36:57 by nsainton          #+#    #+#              #
-#    Updated: 2023/06/07 14:01:56 by nsainton         ###   ########.fr        #
+#    Updated: 2023/06/07 14:23:52 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,11 @@ DEPS:= $(patsubst %.c, $(DEPS_DIR)/%.d, $(SRCS_NAMES))
 
 LIBS_DIR ?= $(addprefix $(shell pwd)/, libs)
 
-ABBRS:= -lphtread
+ABBRS:= -pthread
 
 CC:= cc
 
-CFLAGS:= -ggdb -Wall -Wextra -Werror
+CFLAGS:= -g3 -Wall -Wextra -Werror
 
 HEADER_URL := git@github.com:nsainton/header.git
 
@@ -87,7 +87,7 @@ END=\033[0m
 #as line continuation. One could also have added a space after the backslash
 #The export directive makes the header available to each submake
 #Font used is Isometric1
-define minishell_header
+define philo_header
 ___________.__    .__        __   .__                
 \__    ___/|  |__ |__| ____ |  | _|__| ____    ____  
   |    |   |  |  \|  |/    \|  |/ /  |/    \  / ___\ 
@@ -105,7 +105,7 @@ all:
 	$(MAKE) $(NAME)
 
 $(NAME): $(OBJS) | $(DEPS_DIR)
-	$(CC) $(CFLAGS) $(GG) $(OPT) $(PROG) $(OBJS) \
+	$(CC) $(CFLAGS) $(GG) $(OPT) $(OBJS) \
 	-MD -MF $(DEPS_DIR)/$(NAME).d $(ABBRS) -o $(NAME)
 	echo "$(BEGIN)$(RED)m"
 	echo "$$philo_header"
