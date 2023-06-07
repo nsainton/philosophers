@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   atoi_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/07 17:57:22 by nsainton         ###   ########.fr       */
+/*   Created: 2023/06/07 18:06:52 by nsainton          #+#    #+#             */
+/*   Updated: 2023/06/07 18:10:32 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int	ft_atoi_errors(const char *number, const char *base, int *err)
 {
-	if (ac < 5 || ac > 6)
-		printf("%s %s %s\n", USAGE, ARGS, OPT_ARG);
-	printf("%s", av[0]);
-	return (0);
-}
+	int				number;
+	int				minus;
+	unsigned int	num;
+
+	minus = 1;
+	if (*number == '-')
+	{
+		minus = -1;
+		number ++;
+	}
+	*err = fill_num(&num, number, base);

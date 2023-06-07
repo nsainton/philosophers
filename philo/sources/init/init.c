@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/07 17:57:22 by nsainton         ###   ########.fr       */
+/*   Created: 2023/06/07 17:57:58 by nsainton          #+#    #+#             */
+/*   Updated: 2023/06/07 18:05:38 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int	init_args(t_arg *arg, char **av, int ac)
 {
-	if (ac < 5 || ac > 6)
-		printf("%s %s %s\n", USAGE, ARGS, OPT_ARG);
-	printf("%s", av[0]);
-	return (0);
-}
+	int	err;
+
+	err = 0;
