@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   strings.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 16:08:14 by nsainton          #+#    #+#             */
-/*   Updated: 2023/03/31 16:08:14 by nsainton         ###   ########.fr       */
+/*   Created: 2023/06/08 13:24:55 by nsainton          #+#    #+#             */
+/*   Updated: 2023/06/08 16:29:04 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-# include "philo_int.h"
+#include "philo.h"
 
-//Functions from file : philo.c
-//Functions from file : init.c
-int		init_args(t_arg *arg, char **av, int ac);
+char	*ft_strchr(const char *str, const int c)
+{
+	while (*str)
+	{
+		if (*str == c)
+			return ((char *)str);
+		str ++;
+	}
+	return (NULL);
+}
 
-//Functions from file : atoi_errors.c
-int		ft_atoi_errors(const char *number, const char *base, int *err);
+size_t	ft_strlen(const char *str)
+{
+	size_t	index;
 
-//Functions from file : strings.c
-char	*ft_strchr(const char *str, const int c);
-
-size_t	ft_strlen(const char *str);
-
-#endif
+	index = 0;
+	while (*(str + index))
+		index ++;
+	return (index);
+}

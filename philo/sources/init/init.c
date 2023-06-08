@@ -6,14 +6,16 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:57:58 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/07 18:05:38 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:30:07 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
 int	init_args(t_arg *arg, char **av, int ac)
 {
 	int	err;
 
 	err = 0;
+*/

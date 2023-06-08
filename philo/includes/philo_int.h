@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/07 18:04:55 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:20:14 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include <pthread.h>
 # define USAGE "Usage: ./philo"
 # define ARGS "number_of_philosophers time_to_die time_to_eat time_to_sleep"
