@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:57:58 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 14:41:57 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:50:26 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@ static int	init_arg(unsigned int *arg, const char *str, const char *name)
 	return (EXIT_SUCCESS);
 }
 
+/*
+We set the number of rounds to one if no option is provided
+So that it will always be true and our counter will not decrease in our
+main loop for the philosophers.
+*/
 int	init_args(t_arg *arg, char **av, int opt)
 {
+	arg->rounds = 1;
 	if (init_arg(&arg->philosophers, *av, "number of philosophers"))
 		return (EXIT_FAILURE);
 	if (init_arg(&arg->die, *(av + 1), "time to die"))

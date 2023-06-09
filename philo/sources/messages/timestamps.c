@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 10:35:37 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 14:46:19 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:48:18 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*concat(t_ull timestamp, t_cuint philosopher, t_cchar *action)
 	return (msg);
 }
 
-int	print_action(struct timeval *start, t_cuint philo, t_cchar *action)
+int	print_action(const struct timeval *start, t_cuint philo, t_cchar *action)
 {
 	struct timeval	current;
 	struct timeval	elapsed;

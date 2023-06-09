@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 14:24:48 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:48:02 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,26 @@
 # define OPT_ARG "[number_of_times_each_philosopher_must_eat]"
 # define ERR_STRING "Error encountered while parsing argument"
 # define DEC "0123456789"
+# define SLP "is sleeping"
+# define FRK "has taken a fork"
+# define EAT "is eating"
+# define THK "is thinking"
+# define DIE "died"
 
 //Structures Definition
 struct s_philosopher
 {
-	unsigned int	philosophers;
-	unsigned int	sleep;
-	unsigned int	eat;
-	unsigned int	die;
-	unsigned int	rounds;
-	char			is_alive;
+	unsigned int			philosophers;
+	unsigned int			rank;
+	unsigned int			sleep;
+	unsigned int			eat;
+	unsigned int			die;
+	unsigned int			rounds;
+	pthread_mutex_t			*forks;
+	char					is_alive;
+	char					infinite;
+	struct timeval			beg_last_meal;
+	const struct timeval	*sim_start;
 };
 
 struct s_arg
@@ -44,6 +54,18 @@ struct s_arg
 	unsigned int	rounds;
 };
 
+//Enums Definitions
+enum e_state
+{
+	DEAD,
+	ALIVE
+};
+
+enum e_simulation
+{
+	CONTINUE,
+	STOP
+};
 //Typedefs
 
 typedef const int				t_cint;
