@@ -1,49 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.c                                          :+:      :+:    :+:   */
+/*   numbers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 13:24:55 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 14:15:27 by nsainton         ###   ########.fr       */
+/*   Created: 2023/06/09 13:58:00 by nsainton          #+#    #+#             */
+/*   Updated: 2023/06/09 14:47:16 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	*ft_strchr(const char *str, const int c)
+unsigned int	count_digits(t_ull number)
 {
-	while (*str)
+	t_uint	dig;
+
+	if (! number)
+		return (1);
+	dig = 0;
+	while (number)
 	{
-		if (*str == c)
-			return ((char *)str);
-		str ++;
+		number /= 10;
+		dig ++;
 	}
-	return (NULL);
+	return (dig);
 }
 
-size_t	ft_strlen(const char *str)
+void	fill_num(char **str, const t_ull number)
 {
-	size_t	index;
-
-	index = 0;
-	while (*(str + index))
-		index ++;
-	return (index);
-}
-
-char	*ft_strcat(char *dst, const char *src)
-{
-	size_t	index;
-
-	index = ft_strlen(dst);
-	while (*src)
+	if (number > 9)
 	{
-		*(dst + index) = *src;
-		src ++;
-		index ++;
+		fill_num(str, number / 10);
+		fill_num(str, number % 10);
 	}
-	*(dst + index) = '\0';
-	return (dst);
+	else
+	{
+		**str = number + '0';
+		(*str)++;
+	}
 }
