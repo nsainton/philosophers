@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:03:56 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/10 14:07:15 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:26:24 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ int	put_forks(pthread_mutex_t *mutex, t_cuint philosophers, t_cuint rank)
 	err = put_right_fork(mutex, philosophers, rank);
 	if (err)
 		return (err);
-	return (get_right_fork(mutex, philosophers, rank));
+	return (put_left_fork(mutex, rank));
 }

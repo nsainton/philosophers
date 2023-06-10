@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:05:01 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/10 13:25:56 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:25:46 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	continue_simulation(t_philosopher *philo)
 {
-	if (philo->sim_state == DEAD)
+	if (*philo->sim_state == DEAD)
 		return (STOP);
 	return (CONTINUE);
 }
@@ -28,9 +28,9 @@ int	check_philo_status(t_philosopher *philos, t_cuint philosophers)
 	index = 0;
 	while (index < philosophers)
 	{
-		if ((philo + index)->state == ALIVE && is_alive(philo + index) == DEAD)
+		if ((philos + index)->state == ALIVE && is_alive(philos + index) == DEAD)
 			return (DEAD);
-		if ((philo + index)->state == FINISHED)
+		if ((philos + index)->state == FINISHED)
 			finished ++;
 		index ++;
 	}
