@@ -6,25 +6,29 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 17:48:45 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:52:28 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	is_alive(t_philosopher *philo)
+int	is_alive(t_philosopher *philo)
 {
 	int err;
 
+	if (philo->state == DEAD)
+		return (DEAD);
 	if (elapsed_time(&philo->beg_last_meal, &err) >= philo->die || err)
 	{
+		philo->sim_state = DEAD;
+		philo->state = DEAD;
 		print_action(philo->sim_start, philo->rank, DIE);
 		return (DEAD);
 	}
 	return (ALIVE);
 }
 
-int	sleep_philosopher(t_philosopher *philo, t_cchar *status)
+static int	sleep_philosopher(t_philosopher *philo, t_cint status)
 {
 	if (check_status(status, philo->philosophers) == STOP)
 		return (STOP);
@@ -33,14 +37,9 @@ int	sleep_philosopher(t_philosopher *philo, t_cchar *status)
 	return (CONTINUE);
 }
 
-int	think_philosopher(t_philosopher *philo, char *status)
+static int	think_philosopher(t_philosopher *philo)
 {
-	if (is_alive(philo) == DEAD)
-	{
-		*(status + philo->rank - 1) = DEAD;
-		return (STOP);
-	}
-	if (check_status(status, philo->philosophers) == STOP)
+	if (is_alive(philo) == DEAD || continue_simulation(philo) == STOP)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, THK);
 	return (EXIT_SUCCESS);

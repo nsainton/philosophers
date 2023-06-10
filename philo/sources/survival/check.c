@@ -6,22 +6,35 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:05:01 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 17:37:50 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:25:56 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_status(t_cchar *status, t_cuint philosophers)
+int	continue_simulation(t_philosopher *philo)
 {
+	if (philo->sim_state == DEAD)
+		return (STOP);
+	return (CONTINUE);
+}
+
+int	check_philo_status(t_philosopher *philos, t_cuint philosophers)
+{
+	t_uint	finished;
 	t_uint	index;
 
+	finished = 0;
 	index = 0;
 	while (index < philosophers)
 	{
-		if (*(status + index) == DEAD)
-			return (STOP);
+		if ((philo + index)->state == ALIVE && is_alive(philo + index) == DEAD)
+			return (DEAD);
+		if ((philo + index)->state == FINISHED)
+			finished ++;
 		index ++;
 	}
-	return (CONTINUE);
+	if (finished == philosophers)
+		return (FINISHED);
+	return (ALIVE);
 }

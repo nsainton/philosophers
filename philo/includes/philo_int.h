@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 17:48:02 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:43:44 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@
 # define DIE "died"
 
 //Structures Definition
-struct s_philosopher
-{
-	unsigned int			philosophers;
-	unsigned int			rank;
-	unsigned int			sleep;
-	unsigned int			eat;
-	unsigned int			die;
-	unsigned int			rounds;
-	pthread_mutex_t			*forks;
-	char					is_alive;
-	char					infinite;
-	struct timeval			beg_last_meal;
-	const struct timeval	*sim_start;
-};
-
 struct s_arg
 {
 	unsigned int	philosophers;
@@ -54,11 +39,29 @@ struct s_arg
 	unsigned int	rounds;
 };
 
+struct s_philosopher
+{
+	unsigned int			philosophers;
+	unsigned int			sleep;
+	unsigned int			eat;
+	unsigned int			die;
+	unsigned int			rounds;
+	//struct s_arg			*arguments;
+	unsigned int			rank;
+	pthread_mutex_t			*forks;
+	//pthread_mutex_t			*m_sim_state;
+	int						state;
+	int						*sim_state;
+	struct timeval			beg_last_meal;
+	const struct timeval	*sim_start;
+};
+
 //Enums Definitions
 enum e_state
 {
-	DEAD,
-	ALIVE
+	DEAD = -1,
+	ALIVE,
+	FINISHED,
 };
 
 enum e_simulation
