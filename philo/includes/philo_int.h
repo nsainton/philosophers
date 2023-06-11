@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/10 13:43:44 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:02:32 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ struct s_arg
 	unsigned int	eat;
 	unsigned int	die;
 	unsigned int	rounds;
+	pthread_mutex_t	*forks;
+	int				*sim_state;
+	struct timeval	*sim_start;
 };
 
 struct s_philosopher

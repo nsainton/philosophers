@@ -6,15 +6,15 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:05:01 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/10 14:25:46 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:28:35 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	continue_simulation(t_philosopher *philo)
+int	continue_simulation(const int *sim_state)
 {
-	if (*philo->sim_state == DEAD)
+	if (*sim_state == DEAD)
 		return (STOP);
 	return (CONTINUE);
 }

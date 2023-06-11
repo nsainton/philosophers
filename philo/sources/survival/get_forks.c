@@ -6,44 +6,73 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/10 14:07:27 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:49:29 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	get_left_fork(pthread_mutex_t *mutex, t_cuint rank)
+//static int	get_left_fork(pthread_mutex_t *mutex, t_cuint rank, t_cint *sim_state)
+static int	get_left_fork(t_philosopher *philo)
 {
-	return (pthread_mutex_lock(mutex + rank - 1));
+	int	err;
+
+	err = pthread_mutex_lock(philo->forks + philo->rank - 1);
+	if (err)
+		return (STOP);
+	if (continue_simulation(philo->sim_state) == STOP)
+	{
+		put_left_fork(philo->forks, philo->rank);
+		return (STOP);
+	}
+	if (print_action(philo->sim_start, philo->rank, FRK))
+		return (STOP);
+	return (CONTINUE);
 }
 
-static int	get_right_fork(pthread_mutex_t *mutex, t_cuint philosophers, t_cuint rank)
+//static int	get_right_fork(pthread_mutex_t *mutex, t_cuint philosophers, t_cuint rank, t_cint *sim_state)
+static int	get_right_fork(t_philosopher *philo)
 {
-	if (rank == philosophers)
-		return (pthread_mutex_lock(mutex));
-	return (pthread_mutex_lock(mutex + rank));
+	int				err;
+
+	if (philo->rank == philo->philosophers)
+		err = pthread_mutex_lock(philo->forks);
+	err = pthread_mutex_lock(philo->forks + philo->rank);
+	if (err)
+		return (STOP);
+	if (continue_simulation(philo->sim_state) == STOP)
+	{
+		put_right_fork(philo->forks, philo->philosophers, philo->rank);
+		return (STOP);
+	}
+	if (print_action(philo->sim_start, philo->rank, FRK))
+		return (STOP);
+	return (CONTINUE);
 }
 
 /*
 The first fork is fork number 1 and between 1 and 2
 The last fork is fork number 0 and between N and 1
 */
-int	get_forks(pthread_mutex_t *mutex, t_cuint philosophers, t_cuint rank)
+//int	get_forks(pthread_mutex_t *mutex, t_cuint philosophers, t_cuint rank, t_cint *sim_state)
+int	get_forks(t_philosopher *philo)
 {
 	int	err;
 
-	if (philosophers == 1)
-		return (pthread_mutex_lock(mutex));
-	if (rank % 2)
+	if (continue_simulation(philo->sim_state) == STOP)
+		return (STOP);
+	if (philo->philosophers == 1)
+		return (pthread_mutex_lock(philo->forks));
+	if (philo->rank % 2)
 	{
-		err = get_right_fork(mutex, philosophers, rank);
+		err = get_right_fork(philo);
 		if (err)
 			return (err);
-		return (get_left_fork(mutex, rank));
+		return (get_left_fork(philo));
 	}
-	err = get_left_fork(mutex, rank);
+	err = get_left_fork(philo);
 	if (err)
 		return (err);
-	return (get_right_fork(mutex, philosophers, rank));
+	return (get_right_fork(philo));
 }
 

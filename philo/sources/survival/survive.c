@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/10 14:26:37 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:45:54 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	is_alive(t_philosopher *philo)
 
 static int	sleep_philosopher(t_philosopher *philo)
 {
-	if (is_alive(philo) == DEAD || continue_simulation(philo) == STOP)
+	if (is_alive(philo) == DEAD \
+	|| continue_simulation(philo->sim_state) == STOP)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, SLP);
 	usleep(philo->sleep * 1000);
@@ -39,18 +40,41 @@ static int	sleep_philosopher(t_philosopher *philo)
 
 static int	think_philosopher(t_philosopher *philo)
 {
-	if (is_alive(philo) == DEAD || continue_simulation(philo) == STOP)
+	if (is_alive(philo) == DEAD \
+	|| continue_simulation(philo->sim_state) == STOP)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, THK);
-	return (EXIT_SUCCESS);
+	return (CONTINUE);
 }
 
 static int	eat_philosopher(t_philosopher *philo)
 {
-	if (continue_simulation(philo) == STOP \
+	if (continue_simulation(philo->sim_state) == STOP \
 	|| gettimeofday(&philo->beg_last_meal, NULL) == -1)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, EAT);
 	usleep(philo->sleep * 1000);
 	return (CONTINUE);
+}
+
+int	live(t_philosopher *philo)
+{
+	t_uint	dec;
+	t_uint	rounds;
+
+	rounds = philo->rounds;
+	dec = (rounds != UINT_MAX);
+	while (rounds > 0)
+	{
+		if (think_philosopher(philo) == STOP)
+			return (STOP);
+		if (get_forks(philo) == STOP)
+			return (STOP);
+		if (eat_philosopher(philo) == STOP)
+			return (STOP);
+		if (sleep_philosopher(philo) == STOP)
+			return (STOP);
+		rounds -= dec;
+	}
+	return (FINISHED);
 }
