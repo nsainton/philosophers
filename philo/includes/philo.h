@@ -29,7 +29,18 @@ const int rank);
 //Functions from file : init.c
 int				init_args(t_arg *arg, char **av, int opt);
 
+//Functions from file : allocate_ressources.c
 int				start_clock(struct timeval **start);
+
+int				destroy_forks(pthread_mutex_t *forks, \
+const t_uint philosophers);
+
+int				init_forks(pthread_mutex_t **forks, \
+const t_uint philosophers);
+
+int				allocate_arg(t_arg *args);
+
+int				free_args(t_arg *args);
 
 //Functions from file : memory.c
 void			ft_bzero(void *s, size_t n);

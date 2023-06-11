@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:57:58 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 13:58:27 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:39:02 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ int	init_args(t_arg *arg, char **av, int opt)
 	}
 	if (init_arg(&arg->rounds, *(av + 4), "number of rounds each philosopher \
 must eat"))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-int	start_clock(struct timeval **start)
-{
-	*start = malloc(sizeof **start);
-	if (! *start || gettimeofday(*start, NULL) < 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
