@@ -23,24 +23,31 @@ void			parsing_error(const char *argument);
 
 //Functions from file : philo.c
 //Functions from file : init_philosopher.c
-int				init_philosopher(t_philosopher *philo, t_arg *args, \
+void			init_philosopher(t_philosopher *philo, t_arg *args, \
 const int rank);
 
+int				init_philosophers(t_philosopher **philos, t_arg *args);
+
+//Functions from file : parsing.c
+int				parse_args(t_arg *arg, const char **av, const int opt);
+
 //Functions from file : init.c
-int				init_args(t_arg *arg, char **av, int opt);
+int				init(t_arg *args, t_philosopher **philo, char **av, \
+int opt);
+
+//Functions from file : free_ressources.c
+int				destroy_forks(pthread_mutex_t *forks, \
+const t_uint philosophers);
+
+int				free_args(t_arg *args);
 
 //Functions from file : allocate_ressources.c
 int				start_clock(struct timeval **start);
-
-int				destroy_forks(pthread_mutex_t *forks, \
-const t_uint philosophers);
 
 int				init_forks(pthread_mutex_t **forks, \
 const t_uint philosophers);
 
 int				allocate_arg(t_arg *args);
-
-int				free_args(t_arg *args);
 
 //Functions from file : memory.c
 void			ft_bzero(void *s, size_t n);

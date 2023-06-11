@@ -6,13 +6,13 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:58:37 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 14:19:21 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:46:25 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_philosopher(t_philosopher *philo, t_arg *args, const int rank)
+void	init_philosopher(t_philosopher *philo, t_arg *args, const int rank)
 {
 	ft_bzero(philo, sizeof * philo);
 	philo->philosophers = args->philosophers;
@@ -26,5 +26,17 @@ int	init_philosopher(t_philosopher *philo, t_arg *args, const int rank)
 	ft_memcpy(&philo->beg_last_meal, philo->sim_start\
 	, sizeof philo->beg_last_meal);
 	philo->rank = rank;
-	return (0);
+}
+
+int	init_philosophers(t_philosopher **philos, t_arg *args)
+{
+	t_uint	index;
+
+	*philos = malloc(args->philosophers * sizeof **philos);
+	if (! *philos)
+		return (EXIT_FAILURE);
+	index = 0;
+	while (index++ < args->philosophers)
+		init_philosopher(philos, args, index);
+	return (EXIT_SUCCESS);
 }

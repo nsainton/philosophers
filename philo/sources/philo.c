@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/09 14:46:41 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:43:24 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int ac, char **av)
 {
 	t_arg			args;
-	struct timeval	*start;
 	/*
 	int	err;
 	int	index;
@@ -36,7 +35,7 @@ int	main(int ac, char **av)
 		return (EXIT_SUCCESS);
 	}
 	start = NULL;
-	if (init_args(&args, av + 1, (ac == 6)) || start_clock(&start))
+	if (parse_args(&args, av + 1, (ac == 6)) || start_clock(&start))
 		return (EXIT_FAILURE);
 	sleep(1);
 	print_action(start, 2, "has taken a fork");

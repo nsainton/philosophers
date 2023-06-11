@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   free_ressources.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 20:49:12 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:54:02 by nsainton         ###   ########.fr       */
+/*   Created: 2023/06/11 20:48:02 by nsainton          #+#    #+#             */
+/*   Updated: 2023/06/11 20:48:45 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init(t_arg *args, t_philosopher **philos, const char **av, const int opt)
+int	destroy_forks(pthread_mutex_t *forks, const t_uint philosophers)
 {
-	if (parse_args(arg, av, opt))
-		return (EXIT_FAILURE);
-	if (allocate_args(args))
-		return (EXIT_FAILURE);
-	if (init_philosophers(philos, args))
+	int		err;
+	t_uint	index;
+
+	err = EXIT_SUCCESS;
+	index = 0;
+	while (index < philosophers)
 	{
-		free_args(args);
-		return (EXIT_FAILURE);
+		if (pthread_mutex_destroy(forks + index))
+			err = EXIT_FAILURE;
+		index ++;
 	}
-	return (EXIT_SUCCESS);
+	return (err);
+}
+
+int	free_args(t_arg *args)
+{
+	free(args->sim_state);
+	free(args->sim_start);
+	return (destroy_forks(args->forks, args->philosophers));
 }
