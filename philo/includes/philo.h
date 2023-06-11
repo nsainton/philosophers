@@ -22,6 +22,10 @@ t_cchar *action);
 void			parsing_error(const char *argument);
 
 //Functions from file : philo.c
+//Functions from file : init_philosopher.c
+int				init_philosopher(t_philosopher *philo, t_arg *args, \
+const int rank);
+
 //Functions from file : init.c
 int				init_args(t_arg *arg, char **av, int opt);
 
@@ -31,6 +35,8 @@ int				start_clock(struct timeval **start);
 void			ft_bzero(void *s, size_t n);
 
 void			ft_memset(void *s, t_cint c, size_t n);
+
+void			ft_memcpy(void *dest, const void *src, const size_t n);
 
 //Functions from file : time_units.c
 t_ull			timer_to_ms(const struct timeval *timer);
