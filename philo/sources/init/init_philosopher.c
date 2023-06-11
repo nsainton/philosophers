@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:58:37 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:46:25 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:00:21 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	init_philosophers(t_philosopher **philos, t_arg *args)
 	if (! *philos)
 		return (EXIT_FAILURE);
 	index = 0;
-	while (index++ < args->philosophers)
-		init_philosopher(philos, args, index);
+	while (index < args->philosophers)
+	{
+		init_philosopher(*philos + index, args, index + 1);
+		index ++;
+	}
 	return (EXIT_SUCCESS);
 }

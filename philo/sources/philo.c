@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:43:24 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:57:39 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_arg			args;
+	t_philosopher	*philosophers;
 	/*
 	int	err;
 	int	index;
@@ -34,7 +35,7 @@ int	main(int ac, char **av)
 		printf("%s %s %s\n", USAGE, ARGS, OPT_ARG);
 		return (EXIT_SUCCESS);
 	}
-	start = NULL;
+	/*
 	if (parse_args(&args, av + 1, (ac == 6)) || start_clock(&start))
 		return (EXIT_FAILURE);
 	sleep(1);
@@ -42,6 +43,12 @@ int	main(int ac, char **av)
 	sleep(1);
 	print_action(start, 1, "died");
 	free(start);
+	*/
 	//printf("%s", av[0]);
+	if (init(&args, &philosophers, (const char **)av + 1, ac == 6))
+		printf("Problem while initializing\n");
+	free_args(&args);
+	free(philosophers);
+	printf("Todo bene\n");
 	return (EXIT_SUCCESS);
 }

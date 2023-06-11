@@ -32,8 +32,8 @@ int				init_philosophers(t_philosopher **philos, t_arg *args);
 int				parse_args(t_arg *arg, const char **av, const int opt);
 
 //Functions from file : init.c
-int				init(t_arg *args, t_philosopher **philo, char **av, \
-int opt);
+int				init(t_arg *args, t_philosopher **philos, \
+const char **av, const int opt);
 
 //Functions from file : free_ressources.c
 int				destroy_forks(pthread_mutex_t *forks, \
@@ -47,7 +47,7 @@ int				start_clock(struct timeval **start);
 int				init_forks(pthread_mutex_t **forks, \
 const t_uint philosophers);
 
-int				allocate_arg(t_arg *args);
+int				allocate_args(t_arg *args);
 
 //Functions from file : memory.c
 void			ft_bzero(void *s, size_t n);

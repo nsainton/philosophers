@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 20:48:02 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:48:45 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:04:08 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	destroy_forks(pthread_mutex_t *forks, const t_uint philosophers)
 
 int	free_args(t_arg *args)
 {
+	int	err;
+
 	free(args->sim_state);
 	free(args->sim_start);
-	return (destroy_forks(args->forks, args->philosophers));
+	err = destroy_forks(args->forks, args->philosophers);
+	free(args->forks);
+	return (err);
 }

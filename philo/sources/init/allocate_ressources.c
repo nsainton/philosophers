@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:38:40 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:52:35 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:02:06 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	allocate_args(t_arg *args)
 	args->sim_state = malloc(sizeof *args->sim_state);
 	if (! args->sim_state)
 		return (EXIT_FAILURE);
-	args->sim_state = CONTINUE;
+	*args->sim_state = CONTINUE;
 	if (start_clock(&args->sim_start))
 	{
 		free(args->sim_state);
