@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:38:40 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 21:02:06 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:12:20 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ int	start_clock(struct timeval **start)
 	return (EXIT_SUCCESS);
 }
 
-int	init_forks(pthread_mutex_t **forks, const t_uint philosophers)
+int	init_locks(pthread_mutex_t **locks, const t_uint philosophers)
 {
 	t_uint	index;
 
-	*forks = malloc(philosophers * sizeof **forks);
-	if (! *forks)
+	*locks = malloc(philosophers * sizeof **locks);
+	if (! *locks)
 		return (EXIT_FAILURE);
 	index = 0;
 	while (index < philosophers)
 	{
-		if (pthread_mutex_init(*forks + index, NULL))
+		if (pthread_mutex_init(*locks + index, NULL))
 		{
-			destroy_forks(*forks, index);
-			free(*forks);
+			destroy_locks(*locks, index);
+			free(*locks);
 			return (EXIT_FAILURE);
 		}
 		index ++;
@@ -57,10 +57,18 @@ int	allocate_args(t_arg *args)
 		free(args->sim_state);
 		return (EXIT_FAILURE);
 	}
-	if (init_forks(&args->forks, args->philosophers))
+	if (init_locks(&args->forks, args->philosophers))
 	{
 		free(args->sim_state);
 		free(args->sim_start);
+		return (EXIT_FAILURE);
+	}
+	if (init_locks(&args->meals, args->philosophers))
+	{
+		free(args->sim_state);
+		free(args->sim_start);
+		destroy_locks(args->forks, args->philosophers);
+		free(args->forks);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

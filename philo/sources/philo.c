@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 16:43:37 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:11:36 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 	}
 	while (*args.sim_state == ALIVE)
 	{
-		usleep(5000);
+		usleep(1000);
 		*args.sim_state = check_philo_status(philosophers);
 	}
 	kill_simulation(threads, philosophers->philosophers);

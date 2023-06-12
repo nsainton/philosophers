@@ -43,7 +43,7 @@ int				init(t_arg *args, t_philosopher **philos, \
 const char **av, const int opt);
 
 //Functions from file : free_ressources.c
-int				destroy_forks(pthread_mutex_t *forks, \
+int				destroy_locks(pthread_mutex_t *locks, \
 const t_uint philosophers);
 
 int				free_args(t_arg *args);
@@ -51,7 +51,7 @@ int				free_args(t_arg *args);
 //Functions from file : allocate_ressources.c
 int				start_clock(struct timeval **start);
 
-int				init_forks(pthread_mutex_t **forks, \
+int				init_locks(pthread_mutex_t **locks, \
 const t_uint philosophers);
 
 int				allocate_args(t_arg *args);
@@ -66,7 +66,8 @@ void			ft_memcpy(void *dest, const void *src, const size_t n);
 //Functions from file : time_units.c
 t_ull			timer_to_ms(const struct timeval *timer);
 
-t_ull			elapsed_time(const struct timeval *timer, int *err);
+t_ull			elapsed_time(pthread_mutex_t *lock, \
+const struct timeval *timer, int *err);
 
 //Functions from file : strings.c
 char			*ft_strchr(const char *str, const int c);

@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 13:58:37 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 21:00:21 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:08:03 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_philosopher(t_philosopher *philo, t_arg *args, const int rank)
 	ft_memcpy(&philo->beg_last_meal, philo->sim_start\
 	, sizeof philo->beg_last_meal);
 	philo->rank = rank;
+	philo->last_meal = args->meals + rank - 1;
 }
 
 int	init_philosophers(t_philosopher **philos, t_arg *args)

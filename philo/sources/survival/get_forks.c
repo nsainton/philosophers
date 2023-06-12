@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 16:36:05 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:57:43 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ static int	get_left_fork(t_philosopher *philo)
 	if (print_action(philo->sim_start, philo->rank, FRK))
 		return (STOP);
 	return (CONTINUE);
+	/*
+	err = pthread_mutex_lock(philo->left_fork);
+	if (err)
+		return (STOP);
+	*/
 }
 
 //static int	get_right_fork(pthread_mutex_t *mutex, t_cuint philosophers, t_cuint rank, t_cint *sim_state)

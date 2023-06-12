@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 16:50:47 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:11:52 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	is_alive(t_philosopher *philo)
 		return (FINISHED);
 	if (philo->state == DEAD || continue_simulation(philo->sim_state) == STOP)
 		return (DEAD);
-	if (elapsed_time(&philo->beg_last_meal, &err) >= philo->die || err)
+	if (elapsed_time(philo->last_meal, &philo->beg_last_meal, &err) \
+	>= philo->die || err)
 	{
 		*philo->sim_state = DEAD;
 		philo->state = DEAD;
@@ -51,8 +52,14 @@ static int	think_philosopher(t_philosopher *philo)
 
 static int	eat_philosopher(t_philosopher *philo)
 {
-	if (continue_simulation(philo->sim_state) == STOP \
-	|| gettimeofday(&philo->beg_last_meal, NULL) == -1)
+	int	err;
+
+	if (continue_simulation(philo->sim_state) == STOP)
+		return (STOP);
+	pthread_mutex_lock(philo->last_meal);
+	err = gettimeofday(&philo->beg_last_meal, NULL);
+	pthread_mutex_unlock(philo->last_meal);
+	if (err == -1)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, EAT);
 	usleep(philo->eat * 1000);
