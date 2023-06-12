@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:38:40 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:12:20 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:25:35 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	start_clock(struct timeval **start)
 	if (gettimeofday(*start, NULL) < 0)
 	{
 		free(*start);
+		*start = NULL;
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -39,6 +40,7 @@ int	init_locks(pthread_mutex_t **locks, const t_uint philosophers)
 		{
 			destroy_locks(*locks, index);
 			free(*locks);
+			*locks = NULL;
 			return (EXIT_FAILURE);
 		}
 		index ++;
@@ -59,16 +61,17 @@ int	allocate_args(t_arg *args)
 	}
 	if (init_locks(&args->forks, args->philosophers))
 	{
-		free(args->sim_state);
-		free(args->sim_start);
+		free_args(args);
 		return (EXIT_FAILURE);
 	}
 	if (init_locks(&args->meals, args->philosophers))
 	{
-		free(args->sim_state);
-		free(args->sim_start);
-		destroy_locks(args->forks, args->philosophers);
-		free(args->forks);
+		free_args(args);
+		return (EXIT_FAILURE);
+	}
+	if (init_locks(&args->state_key, 1))
+	{
+		free_args(args);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

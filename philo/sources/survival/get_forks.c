@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 19:57:43 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:31:02 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	get_left_fork(t_philosopher *philo)
 	err = pthread_mutex_lock(philo->forks + philo->rank - 1);
 	if (err)
 		return (STOP);
-	if (continue_simulation(philo->sim_state) == STOP)
+	if (continue_simulation(philo->sim_state, philo->state_key) == STOP)
 	{
 		put_left_fork(philo->forks, philo->rank);
 		return (STOP);
@@ -47,7 +47,7 @@ static int	get_right_fork(t_philosopher *philo)
 		err = pthread_mutex_lock(philo->forks + philo->rank);
 	if (err)
 		return (STOP);
-	if (continue_simulation(philo->sim_state) == STOP)
+	if (continue_simulation(philo->sim_state, philo->state_key) == STOP)
 	{
 		put_right_fork(philo->forks, philo->philosophers, philo->rank);
 		return (STOP);
@@ -66,7 +66,7 @@ int	get_forks(t_philosopher *philo)
 {
 	int	err;
 
-	if (continue_simulation(philo->sim_state) == STOP)
+	if (continue_simulation(philo->sim_state, philo->state_key) == STOP)
 		return (STOP);
 	if (philo->philosophers == 1)
 		return (pthread_mutex_lock(philo->forks));

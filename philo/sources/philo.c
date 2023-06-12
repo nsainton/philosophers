@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 17:11:36 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:48:19 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int ac, char **av)
 	t_arg			args;
 	t_philosopher	*philosophers;
 	pthread_t		*threads;
+	int				state;
 	/*
 	int	err;
 	int	index;
@@ -57,10 +58,14 @@ int	main(int ac, char **av)
 		free(philosophers);
 		return (EXIT_FAILURE);
 	}
-	while (*args.sim_state == ALIVE)
+	state = ALIVE;
+	while (state == ALIVE)
 	{
-		usleep(1000);
-		*args.sim_state = check_philo_status(philosophers);
+		usleep(5000);
+		state = check_philo_status(philosophers);
+		pthread_mutex_lock(args.state_key);
+		*args.sim_state = state;
+		pthread_mutex_unlock(args.state_key);
 	}
 	kill_simulation(threads, philosophers->philosophers);
 	free_args(&args);

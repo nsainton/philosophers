@@ -86,7 +86,8 @@ int				ft_atoi_errors(const char *number, const char *base, \
 int *err);
 
 //Functions from file : check.c
-int				continue_simulation(const int *sim_state);
+int				continue_simulation(const int *sim_state, \
+pthread_mutex_t *state_key);
 
 int				check_philo_status(t_philosopher *philos);
 

@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:11:52 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:49:57 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ int	is_alive(t_philosopher *philo)
 
 	if (philo->state == FINISHED)
 		return (FINISHED);
-	if (philo->state == DEAD || continue_simulation(philo->sim_state) == STOP)
+	if (philo->state == DEAD \
+	|| continue_simulation(philo->sim_state, philo->state_key) == STOP)
 		return (DEAD);
 	if (elapsed_time(philo->last_meal, &philo->beg_last_meal, &err) \
 	>= philo->die || err)
 	{
+		pthread_mutex_lock(philo->state_key);
 		*philo->sim_state = DEAD;
+		pthread_mutex_unlock(philo->state_key);
 		philo->state = DEAD;
+		//printf("I report my death\n");
 		print_action(philo->sim_start, philo->rank, DIE);
 		return (DEAD);
 	}
@@ -34,7 +38,8 @@ int	is_alive(t_philosopher *philo)
 static int	sleep_philosopher(t_philosopher *philo)
 {
 	if (is_alive(philo) == DEAD \
-	|| continue_simulation(philo->sim_state) == STOP)
+	|| continue_simulation(philo->sim_state, philo->state_key) \
+	== STOP)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, SLP);
 	usleep(philo->sleep * 1000);
@@ -44,7 +49,8 @@ static int	sleep_philosopher(t_philosopher *philo)
 static int	think_philosopher(t_philosopher *philo)
 {
 	if (is_alive(philo) == DEAD \
-	|| continue_simulation(philo->sim_state) == STOP)
+	|| continue_simulation(philo->sim_state, philo->state_key) \
+	== STOP)
 		return (STOP);
 	print_action(philo->sim_start, philo->rank, THK);
 	return (CONTINUE);
@@ -54,7 +60,8 @@ static int	eat_philosopher(t_philosopher *philo)
 {
 	int	err;
 
-	if (continue_simulation(philo->sim_state) == STOP)
+	if (continue_simulation(philo->sim_state, philo->state_key) \
+	== STOP)
 		return (STOP);
 	pthread_mutex_lock(philo->last_meal);
 	err = gettimeofday(&philo->beg_last_meal, NULL);

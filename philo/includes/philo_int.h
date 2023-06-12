@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:03:28 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:16:34 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ struct s_arg
 	unsigned int	rounds;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*meals;
+	pthread_mutex_t	*state_key;
 	int				*sim_state;
 	struct timeval	*sim_start;
 };
@@ -50,11 +51,10 @@ struct s_philosopher
 	unsigned int			eat;
 	unsigned int			die;
 	unsigned int			rounds;
-	//struct s_arg			*arguments;
 	unsigned int			rank;
 	pthread_mutex_t			*forks;
 	pthread_mutex_t			*last_meal;
-	//pthread_mutex_t			*m_sim_state;
+	pthread_mutex_t			*state_key;
 	int						state;
 	int						*sim_state;
 	struct timeval			beg_last_meal;

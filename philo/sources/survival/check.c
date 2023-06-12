@@ -6,15 +6,20 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:05:01 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 16:06:05 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:27:13 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	continue_simulation(const int *sim_state)
+int	continue_simulation(const int *sim_state, pthread_mutex_t *state_key)
 {
-	if (*sim_state == DEAD)
+	int	state;
+
+	pthread_mutex_lock(state_key);
+	state = *sim_state;
+	pthread_mutex_unlock(state_key);
+	if (state == DEAD)
 		return (STOP);
 	return (CONTINUE);
 }

@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:57:58 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:51:06 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:21:57 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ main loop for the philosophers.
 */
 int	parse_args(t_arg *arg, const char **av, const int opt)
 {
+	ft_bzero(arg, sizeof * arg);
 	arg->rounds = 1;
 	if (parse_arg(&arg->philosophers, *av, "number of philosophers"))
 		return (EXIT_FAILURE);
