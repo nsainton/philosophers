@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:49:57 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 22:11:07 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ void	*live(void *philosopher)
 		if (get_forks(philo) == STOP)
 			return (philosopher);
 		if (eat_philosopher(philo) == STOP)
+		{
+			put_forks(philo->forks, philo->philosophers, philo->rank);
 			return (philosopher);
+		}
 		if (put_forks(philo->forks, philo->philosophers, philo->rank))
 			return (philosopher);
 		if (sleep_philosopher(philo) == STOP)
