@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 20:57:39 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:05:03 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int ac, char **av)
 {
 	t_arg			args;
 	t_philosopher	*philosophers;
+	pthread_t		*threads;
 	/*
 	int	err;
 	int	index;
@@ -46,9 +47,24 @@ int	main(int ac, char **av)
 	*/
 	//printf("%s", av[0]);
 	if (init(&args, &philosophers, (const char **)av + 1, ac == 6))
+	{
 		printf("Problem while initializing\n");
+		return (EXIT_FAILURE);
+	}
+	if (launch_simulation(philosophers, &threads))
+	{
+		free_args(&args);
+		free(philosophers);
+		return (EXIT_FAILURE);
+	}
+	while (*args.sim_state == ALIVE)
+	{
+		usleep(5000);
+		*args.sim_state = check_philo_status(philosophers);
+	}
 	free_args(&args);
 	free(philosophers);
-	printf("Todo bene\n");
+	free(threads);
+	printf("DONE\n");
 	return (EXIT_SUCCESS);
 }

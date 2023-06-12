@@ -21,6 +21,10 @@ t_cchar *action);
 //Functions from file : messages.c
 void			parsing_error(const char *argument);
 
+//Functions from file : launch_simulation.c
+int				launch_simulation(t_philosopher *philos, \
+pthread_t **threads);
+
 //Functions from file : philo.c
 //Functions from file : init_philosopher.c
 void			init_philosopher(t_philosopher *philo, t_arg *args, \
@@ -80,8 +84,7 @@ int *err);
 //Functions from file : check.c
 int				continue_simulation(const int *sim_state);
 
-int				check_philo_status(t_philosopher *philos, \
-t_cuint philosophers);
+int				check_philo_status(t_philosopher *philos);
 
 //Functions from file : get_forks.c
 int				get_forks(t_philosopher *philo);
@@ -89,7 +92,7 @@ int				get_forks(t_philosopher *philo);
 //Functions from file : survive.c
 int				is_alive(t_philosopher *philo);
 
-int				live(t_philosopher *philo);
+void			*live(void *philosopher);
 
 //Functions from file : put_forks.c
 int				put_left_fork(pthread_mutex_t *mutex, t_cuint rank);

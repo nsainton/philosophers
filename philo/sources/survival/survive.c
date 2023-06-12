@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 13:45:54 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:07:31 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,26 @@ static int	eat_philosopher(t_philosopher *philo)
 	return (CONTINUE);
 }
 
-int	live(t_philosopher *philo)
+void	*live(void *philosopher)
 {
-	t_uint	dec;
-	t_uint	rounds;
+	t_uint			dec;
+	t_uint			rounds;
+	t_philosopher	*philo;
 
+	philo = (t_philosopher *)philosopher;
 	rounds = philo->rounds;
 	dec = (rounds != UINT_MAX);
 	while (rounds > 0)
 	{
 		if (think_philosopher(philo) == STOP)
-			return (STOP);
+			return (philosopher);
 		if (get_forks(philo) == STOP)
-			return (STOP);
+			return (philosopher);
 		if (eat_philosopher(philo) == STOP)
-			return (STOP);
+			return (philosopher);
 		if (sleep_philosopher(philo) == STOP)
-			return (STOP);
+			return (philosopher);
 		rounds -= dec;
 	}
-	return (FINISHED);
+	return (NULL);
 }

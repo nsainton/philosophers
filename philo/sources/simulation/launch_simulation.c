@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   launch_simulation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 16:05:01 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 16:06:05 by nsainton         ###   ########.fr       */
+/*   Created: 2023/06/11 21:06:51 by nsainton          #+#    #+#             */
+/*   Updated: 2023/06/12 16:00:34 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	continue_simulation(const int *sim_state)
+int	launch_simulation(t_philosopher *philos, pthread_t **threads)
 {
-	if (*sim_state == DEAD)
-		return (STOP);
-	return (CONTINUE);
-}
+	size_t	index;
 
-int	check_philo_status(t_philosopher *philos)
-{
-	t_uint	finished;
-	t_uint	index;
-
-	finished = 0;
-	index = 0;
+	*threads = malloc(philos->philosophers * sizeof **threads);
+	if (! *threads)
+		return (EXIT_FAILURE);
 	while (index < philos->philosophers)
 	{
-		if ((philos + index)->state == ALIVE && is_alive(philos + index) == DEAD)
-			return (DEAD);
-		if ((philos + index)->state == FINISHED)
-			finished ++;
+		if (pthread_create(*threads + index, NULL, live, philos + index))
+			return (EXIT_FAILURE);
 		index ++;
 	}
-	if (finished == philos->philosophers)
-		return (FINISHED);
-	return (ALIVE);
+	return (EXIT_SUCCESS);
 }
