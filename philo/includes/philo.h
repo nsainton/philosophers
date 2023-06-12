@@ -25,6 +25,9 @@ void			parsing_error(const char *argument);
 int				launch_simulation(t_philosopher *philos, \
 pthread_t **threads);
 
+int				kill_simulation(pthread_t *threads, \
+const t_uint philosophers);
+
 //Functions from file : philo.c
 //Functions from file : init_philosopher.c
 void			init_philosopher(t_philosopher *philo, t_arg *args, \

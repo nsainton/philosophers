@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/11 13:49:29 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:36:05 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	get_left_fork(t_philosopher *philo)
 {
 	int	err;
 
+	//printf("Trying to lock left fork number : %u\n", philo->rank - 1);
 	err = pthread_mutex_lock(philo->forks + philo->rank - 1);
 	if (err)
 		return (STOP);
@@ -37,7 +38,8 @@ static int	get_right_fork(t_philosopher *philo)
 
 	if (philo->rank == philo->philosophers)
 		err = pthread_mutex_lock(philo->forks);
-	err = pthread_mutex_lock(philo->forks + philo->rank);
+	else
+		err = pthread_mutex_lock(philo->forks + philo->rank);
 	if (err)
 		return (STOP);
 	if (continue_simulation(philo->sim_state) == STOP)
