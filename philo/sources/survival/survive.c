@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/13 11:03:54 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:09:34 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ void	*live(void *philosopher)
 			put_forks(philo->forks, philo->philosophers, philo->rank);
 			return (philosopher);
 		}
-		if (put_forks(philo->forks, philo->philosophers, philo->rank))
-			return (philosopher);
+		put_forks(philo->forks, philo->philosophers, philo->rank);
 		if (sleep_philosopher(philo) == STOP)
 			return (philosopher);
 		rounds -= dec;
