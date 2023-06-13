@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/13 12:09:12 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:23:47 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,3 @@ int	get_forks(t_philosopher *philo)
 		return (err);
 	return (get_right_fork(philo));
 }
-
