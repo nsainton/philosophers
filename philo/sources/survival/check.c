@@ -6,19 +6,19 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:05:01 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:27:13 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:36:31 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	continue_simulation(const int *sim_state, pthread_mutex_t *state_key)
+int	continue_simulation(const int *sim_state, pthread_mutex_t *sim_state_key)
 {
 	int	state;
 
-	pthread_mutex_lock(state_key);
+	pthread_mutex_lock(sim_state_key);
 	state = *sim_state;
-	pthread_mutex_unlock(state_key);
+	pthread_mutex_unlock(sim_state_key);
 	if (state == DEAD)
 		return (STOP);
 	return (CONTINUE);
@@ -28,14 +28,18 @@ int	check_philo_status(t_philosopher *philos)
 {
 	t_uint	finished;
 	t_uint	index;
+	int		state;
 
 	finished = 0;
 	index = 0;
 	while (index < philos->philosophers)
 	{
-		if ((philos + index)->state == ALIVE && is_alive(philos + index) == DEAD)
+		pthread_mutex_lock((philos + index)->state_key);
+		state = (philos + index)->state;
+		pthread_mutex_unlock((philos + index)->state_key);
+		if (state == ALIVE && is_alive(philos + index) == DEAD)
 			return (DEAD);
-		if ((philos + index)->state == FINISHED)
+		if (state == FINISHED)
 			finished ++;
 		index ++;
 	}

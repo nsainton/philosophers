@@ -87,7 +87,7 @@ int *err);
 
 //Functions from file : check.c
 int				continue_simulation(const int *sim_state, \
-pthread_mutex_t *state_key);
+pthread_mutex_t *sim_state_key);
 
 int				check_philo_status(t_philosopher *philos);
 
@@ -107,5 +107,17 @@ t_cuint philosophers, t_cuint rank);
 
 int				put_forks(pthread_mutex_t *mutex, t_cuint philosophers, \
 t_cuint rank);
+
+//Functions from file : getvars.c
+int				get_state(t_philosopher *philo);
+
+int				get_sim_state(t_philosopher *philo);
+
+//Functions from file : setvars.c
+void			set_sim_state(int *state, const int new_state, \
+pthread_mutex_t *key);
+
+int				update_last_meal(struct timeval *last_meal, \
+pthread_mutex_t *key);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:48:19 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:01:10 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ int	main(int ac, char **av)
 	{
 		usleep(5000);
 		state = check_philo_status(philosophers);
-		pthread_mutex_lock(args.state_key);
-		*args.sim_state = state;
-		pthread_mutex_unlock(args.state_key);
+		set_sim_state(args.sim_state, state, args.state_key);
 	}
 	kill_simulation(threads, philosophers->philosophers);
 	free_args(&args);

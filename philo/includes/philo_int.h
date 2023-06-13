@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:16:34 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:40:34 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ struct s_philosopher
 	unsigned int			rank;
 	pthread_mutex_t			*forks;
 	pthread_mutex_t			*last_meal;
+	pthread_mutex_t			*sim_state_key;
 	pthread_mutex_t			*state_key;
 	int						state;
 	int						*sim_state;

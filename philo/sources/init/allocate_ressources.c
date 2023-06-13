@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:38:40 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/12 20:25:35 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:34:42 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	allocate_args(t_arg *args)
 		free_args(args);
 		return (EXIT_FAILURE);
 	}
-	if (init_locks(&args->state_key, 1))
+	if (init_locks(&args->state_key, args->philosophers + 1))
 	{
 		free_args(args);
 		return (EXIT_FAILURE);
