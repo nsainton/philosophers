@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:14:46 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/13 10:40:34 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:07:46 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@
 # define EAT "is eating"
 # define THK "is thinking"
 # define DIE "died"
-
+# define MAX_LEN 50
+/*
+46 = log(ULLONG_MAX) + log(UINT_MAX) + the length of the longest string in the messages
+50 is the total length if we add the four blocs needed for spaces, '\n' and '\0'
+*/
 //Structures Definition
 struct s_arg
 {
