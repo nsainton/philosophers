@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:32 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/20 13:18:03 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:51:32 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,43 @@ int	is_alive(t_philosopher *philo)
 
 static int	sleep_philosopher(t_philosopher *philo)
 {
+	chrono(0, philo->rank - 1, philo->philosophers);
 	if (is_alive(philo) == DEAD \
 	|| continue_simulation(philo->sim_state, philo->sim_state_key) \
 	== STOP)
 		return (STOP);
+	lprint("The check for sleep took : %lld microseconds\n", chrono(1, philo->rank - 1, philo->philosophers));
 	print_action(philo->sim_start, philo->rank, SLP);
 	usleep(philo->sleep * 1000);
+	lprint("sleep took : %lld microseconds\n", chrono(1, philo->rank - 1, philo->philosophers));
 	return (CONTINUE);
 }
 
 static int	think_philosopher(t_philosopher *philo)
 {
+	chrono(0, philo->rank - 1, philo->philosophers);
 	if (is_alive(philo) == DEAD \
 	|| continue_simulation(philo->sim_state, philo->sim_state_key) \
 	== STOP)
 		return (STOP);
+	lprint("The check for think took : %lld microseconds\n", chrono(1, philo->rank - 1, philo->philosophers));
 	print_action(philo->sim_start, philo->rank, THK);
 	return (CONTINUE);
 }
 
 static int	eat_philosopher(t_philosopher *philo)
 {
+	chrono(0, philo->rank - 1, philo->philosophers);
 	if (continue_simulation(philo->sim_state, philo->sim_state_key) \
 	== STOP)
 		return (STOP);
 	if (update_last_meal(&philo->beg_last_meal, philo->last_meal) \
 	== -1)
 		return (STOP);
+	lprint("The check for eat took : %lld microseconds\n", chrono(1, philo->rank - 1, philo->philosophers));
 	print_action(philo->sim_start, philo->rank, EAT);
 	usleep(philo->eat * 1000);
+	lprint("eat took : %lld microseconds\n", chrono(1, philo->rank - 1, philo->philosophers));
 	return (CONTINUE);
 }
 

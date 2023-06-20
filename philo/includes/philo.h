@@ -117,7 +117,16 @@ int *err);
 //Functions from file : time_units.c
 t_ull			timer_to_ms(const struct timeval *timer);
 
+t_ull			timer_to_us(const struct timeval *timer);
+
 t_ull			elapsed_time(pthread_mutex_t *lock, \
 const struct timeval *timer, int *err);
+
+//Functions from file : chrono.c
+t_ull			chrono(int mode, unsigned int index, \
+unsigned int philosophers);
+
+//Functions from file : print.c
+int				lprint(const char *s, ...);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:49:54 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/13 11:12:56 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:57:01 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int ac, char **av)
 		printf("Problem while initializing\n");
 		return (EXIT_FAILURE);
 	}
+	lprint(NULL);
+	chrono(0, 0, args.philosophers);
 	if (launch_simulation(philosophers, &threads))
 	{
 		free_args(&args);
@@ -69,6 +71,8 @@ int	main(int ac, char **av)
 	free_args(&args);
 	free(philosophers);
 	free(threads);
+	chrono(-1, 0, 0);
+	lprint("");
 	printf("DONE\n");
 	return (EXIT_SUCCESS);
 }
